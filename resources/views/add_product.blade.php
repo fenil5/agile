@@ -53,7 +53,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" id="table_none" style="display:none">
                 <div class="col-lg-12">
                 <div class="ibox ">
                     <div class="ibox-title">
@@ -87,12 +87,16 @@
             
             </div>
             @include('Layout.footerlink')
+            
 <script>
 
 document.getElementById("image").addEventListener("change", readFile);
 
 var base64img;
 var jsonObj = [];
+$.validator.addMethod('filesize', function (value, element, param) {
+    return this.optional(element) || (element.files[0].size <= param * 1000000)
+}, 'File size must be less than 2 MB');
 $("#Studentsform").validate({
 
 rules: {
@@ -107,7 +111,8 @@ rules: {
         required: true,
     },
     image: {
-        required: true, 
+        required: true,
+        filesize : 2, 
         }
     
 },
@@ -130,7 +135,7 @@ submitHandler: function(form){
 }
 });
 function createJSON() {
-    
+    $("#table_none").show(); 
     var name = $('#Name').val();
     var description = $('#description').val();
     var image = $("#base64img").val();
@@ -155,10 +160,16 @@ function createJSON() {
             html+="<td>"+index+"</td>";
             $.each(obj, function (key, value) {
             if(key=="image"){
-                    html+='<td><img     height="100" width="100" src="'+value+'"></td>';
+                    html+='<td><img height="100" width="100" src="'+value+'"></td>';
                 }
                 else{
+                    if(value.length<=50){
+
                     html+="<td>"+value+"</td>";
+                    }
+                    else{
+                        html+="<td>"+value.substring(0,50)+" "+"..."+"</td>";
+                    }
                 }
                 
             });
