@@ -17,6 +17,9 @@
                             <h5>All form elements   </h5>
                             
                         </div>
+                        
+                        <div  class="alert alert-success" id="update_successfully" style="display:none"> Update successfully</div>
+                        
                         <div class="ibox-content">
                         <form method="post" id="Studentsform"   enctype="multipart/form-data" action="javascript:void(0)">
                                 <div class="form-group  row"><label class="col-sm-2 col-form-label">Name</label>
@@ -226,6 +229,9 @@ function readFile() {
             success: function(response) {
                console.log("sfdsf");
                 $("#tbody").html(" ");
+               $("#update_successfully").show();
+               $("#update_successfully").fadeOut(5000);
+
             }
         });
         

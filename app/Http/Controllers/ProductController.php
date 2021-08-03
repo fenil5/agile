@@ -40,6 +40,7 @@ class ProductController extends Controller
             Product::where('id', $id)->update(['Image' => $name]);
             
         }
+       
         return 1;
     }
 }
